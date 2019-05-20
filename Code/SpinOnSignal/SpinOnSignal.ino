@@ -16,7 +16,7 @@ SoftwareSerial BTSerial(10,11);                                            // (R
 /* ===== GLOBAL VARIABLES ===== */
 int minimumThrottle = 1100;                                                // Minimum throttle value required to spin motors
 int stopMotor = 1000;                                                      // Value to stop motors from spinning
-int esc1,esc2,esc3,esc4;                                                   // Electronic Speed Controllers
+int esc1 = stopMotor,esc2 = stopMotor,esc3 = stopMotor,esc4 = stopMotor;   // Electronic Speed Controllers
 unsigned long loopTimer;
 unsigned long timerChannel1, timerChannel2, timerChannel3, timerChannel4, escTimer, escLoopTimer;
 char inputSignal;
@@ -53,6 +53,7 @@ void loop() {
         esc4 = stopMotor;
         break;
     }
+  }
 
   /* ===== ESC CONTROL ===== */
   
