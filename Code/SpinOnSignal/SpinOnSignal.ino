@@ -11,7 +11,7 @@
 /* ===== LIBRARIES ===== */
 #include <SoftwareSerial.h>
 
-SoftwareSerial BTSerial(10,11);                                            // (RX,TX)
+SoftwareSerial BTSerial(12,13);                                            // (RX,TX)
 
 /* ===== GLOBAL VARIABLES ===== */
 int minimumThrottle = 1100;                                                // Minimum throttle value required to spin motors
@@ -23,6 +23,9 @@ char inputSignal;
 
 
 void setup() {
+  Serial.begin(9600);
+  Serial.println("Welcome to AFD Systems");
+  Serial.println("Starting...");
   DDRD |= B11110000;                                                        //Configure digital poort 4, 5, 6 and 7 as output.
   BTSerial.begin(38400);
   loopTimer = micros();                                                     //Set the timer for the next loop.
@@ -35,18 +38,21 @@ void loop() {
     inputSignal = BTSerial.read();
     switch(inputSignal){
       case '1': // Spin motors
+        Serial.println("Spinning");
         esc1 = minimumThrottle;
         esc2 = minimumThrottle;
         esc3 = minimumThrottle;
         esc4 = minimumThrottle;
         break;
-      case '0': // Stop spinning
+      case '0': // Stop motors
+        Serial.println("Stopping");
         esc1 = stopMotor;
         esc2 = stopMotor;
         esc3 = stopMotor;
         esc4 = stopMotor;
         break;
       default:
+        Serial.println("No valid input received");
         esc1 = stopMotor;
         esc2 = stopMotor;
         esc3 = stopMotor;
